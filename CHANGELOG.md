@@ -1,6 +1,9 @@
 # unicorn Cookbook CHANGELOG
 This file is used to list changes made in each version of the unicorn cookbook.
 
+## v2.2.0 (12-16-2015):
+- Added the ability to start unicorn via upstart
+
 ## v2.1.1 (12-14-2015):
 - Added a Rakefile for simplified testing
 - Added the standard chef .rubocop.yml file and a rubocop_todo.yml file

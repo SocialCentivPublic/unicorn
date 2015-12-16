@@ -38,7 +38,8 @@ define :unicorn_config,
     group: nil,
     mode: nil,
     copy_on_write: false,
-    enable_stats: false do
+    enable_stats: false,
+    upstart: false do
   config_dir = File.dirname(params[:name])
 
   directory config_dir do
@@ -66,6 +67,29 @@ define :unicorn_config,
       Chef::Log.warn "Unable to set the Unicorn 'forked_group' because a "\
         "forked_user' was not specified! Unicorn will be run as root! Please "\
         'see the Unicorn documentation regarding `user` for proper usage.'
+    end
+  end
+
+  if params[:upstart]
+    unicorn_params = params
+
+    template "/etc/init/#{unicorn_params[:name]}-unicorn.conf" do
+      user "root"
+      group "root"
+      cookbook "unicorn"
+      source "upstart.erb"
+      mode "0644"
+      variables unicorn_params
+    end
+
+    service "#{unicorn_params[:name]}-unicorn" do
+      provider Chef::Provider::Service::Upstart
+      if node["lsb"]["codename"] == "raring"
+        supports reload: false, restart: true
+      else
+        supports reload: true, restart: true
+      end
+      action :nothing
     end
   end
 end
