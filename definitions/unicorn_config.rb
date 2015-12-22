@@ -39,15 +39,15 @@ define :unicorn_config,
     mode: nil,
     copy_on_write: false,
     enable_stats: false,
-    upstart: false do
-  config_dir = File.dirname(params[:name])
+    upstart: false,
+    base_path: '/etc/unicorn' do
 
-  directory config_dir do
+  directory params[:base_path] do
     recursive true
     action :create
   end
 
-  template params[:name] do
+  template "#{ params[:base_path] }/#{ params[:name] }.rb" do
     source 'unicorn.rb.erb'
     cookbook 'unicorn'
     mode '0644'
