@@ -1,8 +1,9 @@
 # unicorn Cookbook CHANGELOG
 This file is used to list changes made in each version of the unicorn cookbook.
 
-## v2.2.1 (12-22-2015):
+## v2.2.2(12-23-2015):
 - Reworked how cookbook interacts with the :name parameter
+- More tweaks to make upstart work
 
 ## v2.2.0 (12-16-2015):
 - Added the ability to start unicorn via upstart

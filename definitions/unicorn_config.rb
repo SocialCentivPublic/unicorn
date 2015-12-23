@@ -40,7 +40,8 @@ define :unicorn_config,
     copy_on_write: false,
     enable_stats: false,
     upstart: false,
-    base_path: '/etc/unicorn' do
+    base_path: '/etc/unicorn',
+    environment: 'production' do
 
   directory params[:base_path] do
     recursive true
